@@ -1,0 +1,22 @@
+<!-- res/values/styles.xml -->
+<resources>
+    <style name="AppTheme" parent="Theme.MaterialComponents.Light.NoActionBar">
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:windowBackground">@color/backgroundColor</item>
+        <item name="android:textColorPrimary">@color/white</item>
+        <item name="android:buttonStyle">@style/GreenButton</item>m>
+    </style>
+
+    <style name="GreenButton" parent="Widget.AppCompat.Button">
+        <item name="android:background">@drawable/green_button_background</item>
+        <item name="android:textColor">@color/white</item>
+    </style>
+
+    <style name="OutlinedButton" parent="Widget.AppCompat.Button.Borderless">
+        <item name="android:background">@drawable/outlined_button_background</item>
+        <item name="android:textColor">@color/white</item>
+    </style>
+
+</resources>

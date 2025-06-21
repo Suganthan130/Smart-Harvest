@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#00C853</color> <!-- Green -->
+    <color name="colorPrimaryDark">#009624</color>
+    <color name="colorAccent">#00C853</color>
+    <color name="backgroundColor">#1A1A1A</color> <!-- Dark background -->
+    <color name="white">#FFFFFF</color>
+    <color name="lightGray">#CCCCCC</color>
+    <color name="textGray">#AAAAAA</color>
+    <color name="buttonOutline">#444444</color>
+    <color name="black">#FF000000</color>
+    <color name="shimmerColor">#C2C2C2</color>
+</resources>
