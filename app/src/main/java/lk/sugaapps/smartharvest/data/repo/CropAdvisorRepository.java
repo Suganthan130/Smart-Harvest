@@ -5,6 +5,7 @@ import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 
+import androidx.annotation.Nullable;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
@@ -13,25 +14,33 @@ import javax.inject.Singleton;
 
 @Singleton
 public class CropAdvisorRepository implements SensorEventListener {
-    private final MutableLiveData<Integer> luxData = new MutableLiveData<>();
-    private final MutableLiveData<String> cropAdvice = new MutableLiveData<>();
 
     private final SensorManager sensorManager;
+    @Nullable
     private final Sensor lightSensor;
 
+    private final MutableLiveData<Integer> luxData = new MutableLiveData<>();
+    private final MutableLiveData<String> cropAdvice = new MutableLiveData<>();
+    private final MutableLiveData<Boolean> sensorAvailable = new MutableLiveData<>();
+
     @Inject
-    public CropAdvisorRepository(SensorManager sensorManager, Sensor lightSensor) {
+    public CropAdvisorRepository(SensorManager sensorManager, @Nullable Sensor lightSensor) {
         this.sensorManager = sensorManager;
         this.lightSensor = lightSensor;
+
+        if (lightSensor == null) {
+            sensorAvailable.setValue(false);
+        } else {
+            sensorAvailable.setValue(true);
+            registerSensor();
+        }
+
         luxData.setValue(0);
         cropAdvice.setValue("☀️ Waiting for light reading...");
-        registerSensor();
     }
 
     private void registerSensor() {
-        if (lightSensor != null) {
-            sensorManager.registerListener(this, lightSensor, SensorManager.SENSOR_DELAY_NORMAL);
-        }
+        sensorManager.registerListener(this, lightSensor, SensorManager.SENSOR_DELAY_NORMAL);
     }
 
     @Override
@@ -54,6 +63,10 @@ public class CropAdvisorRepository implements SensorEventListener {
 
     public LiveData<String> getCropAdvice() {
         return cropAdvice;
+    }
+
+    public LiveData<Boolean> isSensorAvailable() {
+        return sensorAvailable;
     }
     public static String getAdvice(int lux) {
         if (lux < 8000) {
@@ -87,3 +100,4 @@ public class CropAdvisorRepository implements SensorEventListener {
         }
     }
 }
+

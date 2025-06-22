@@ -4,6 +4,8 @@ import android.content.Context;
 import android.hardware.Sensor;
 import android.hardware.SensorManager;
 
+import androidx.annotation.Nullable;
+
 import javax.inject.Singleton;
 
 import dagger.Module;
@@ -38,6 +40,7 @@ public class AppModule {
 
     @Provides
     @Singleton
+    @Nullable
     public Sensor provideLightSensor(SensorManager sensorManager) {
         return sensorManager.getDefaultSensor(Sensor.TYPE_LIGHT);
     }
