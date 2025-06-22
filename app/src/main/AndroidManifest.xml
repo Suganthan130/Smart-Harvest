@@ -18,6 +18,9 @@
         android:theme="@style/AppTheme"
         tools:targetApi="31">
         <activity
+            android:name=".ui.activities.PriceSummaryActivity"
+            android:exported="false" />
+        <activity
             android:name=".ui.activities.CropAdvisorActivity"
             android:exported="false" />
         <activity

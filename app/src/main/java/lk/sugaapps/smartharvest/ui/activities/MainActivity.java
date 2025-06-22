@@ -21,9 +21,9 @@ import javax.inject.Inject;
 
 import dagger.hilt.android.AndroidEntryPoint;
 import lk.sugaapps.smartharvest.BuildConfig;
+import lk.sugaapps.smartharvest.Constant;
 import lk.sugaapps.smartharvest.data.model.UserModel;
 import lk.sugaapps.smartharvest.data.model.WeatherItemModel;
-import lk.sugaapps.smartharvest.data.remote.model.VegetableResponse;
 import lk.sugaapps.smartharvest.data.remote.model.WeatherResponse;
 import lk.sugaapps.smartharvest.databinding.ActivityMainBinding;
 import lk.sugaapps.smartharvest.ui.adapter.CropHandBookAdapter;
@@ -66,12 +66,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void onClick() {
-        binding.buttonCropAdvisor.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(MainActivity.this,CropAdvisorActivity.class));
-            }
-        });
+        binding.buttonCropAdvisor.setOnClickListener(v -> startActivity(new Intent(MainActivity.this,CropAdvisorActivity.class)));
     }
 
     private void initialView() {
@@ -178,7 +173,6 @@ public class MainActivity extends AppCompatActivity {
         });
 
         firebaseViewModel.getCropHandBookResult().observe(this, resource -> {
-
             switch (resource.status) {
                 case LOADING:
                     binding.recyclerViewCropHandbooks.setVisibility(View.GONE);
@@ -202,20 +196,27 @@ public class MainActivity extends AppCompatActivity {
         });
 
         firebaseViewModel.getVegetableData().observe(this, resource -> {
-
             switch (resource.status) {
                 case LOADING:
+                    binding.shimmerVegetable.startShimmer();
+                    binding.shimmerVegetable.setVisibility(View.VISIBLE);
+                    recyclerViewVegetables.setVisibility(View.GONE);
                     break;
                 case SUCCESS:
-                    vegetablePriceAdapter = new VegetablePriceAdapter(resource.getData(), new VegetablePriceAdapter.OnItemClickListener() {
-                        @Override
-                        public void onItemClick(VegetableResponse item) {
+                    vegetablePriceAdapter = new VegetablePriceAdapter(resource.getData(), item -> {
+                        Intent intent = new Intent(MainActivity.this,PriceSummaryActivity.class);
+                        intent.putExtra(Constant.VEG_ID,item.getPrice_id());
+                        intent.putExtra(Constant.VEG_NAME,item.getName());
+                        startActivity(intent);
 
-                        }
                     });
                     recyclerViewVegetables.setAdapter(vegetablePriceAdapter);
+                    binding.shimmerVegetable.stopShimmer();
+                    binding.shimmerVegetable.setVisibility(View.GONE);
+                    recyclerViewVegetables.setVisibility(View.VISIBLE);
                     break;
                 case ERROR:
+
                     break;
             }
 
