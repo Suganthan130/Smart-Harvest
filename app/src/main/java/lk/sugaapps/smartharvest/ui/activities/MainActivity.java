@@ -5,7 +5,6 @@ import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -22,7 +21,6 @@ import javax.inject.Inject;
 
 import dagger.hilt.android.AndroidEntryPoint;
 import lk.sugaapps.smartharvest.BuildConfig;
-import lk.sugaapps.smartharvest.data.model.CropHandBookModel;
 import lk.sugaapps.smartharvest.data.model.UserModel;
 import lk.sugaapps.smartharvest.data.model.WeatherItemModel;
 import lk.sugaapps.smartharvest.data.remote.model.VegetableResponse;
@@ -32,10 +30,8 @@ import lk.sugaapps.smartharvest.ui.adapter.CropHandBookAdapter;
 import lk.sugaapps.smartharvest.ui.adapter.VegetablePriceAdapter;
 import lk.sugaapps.smartharvest.ui.adapter.WeatherAdapter;
 import lk.sugaapps.smartharvest.utils.DialogUtils;
-import lk.sugaapps.smartharvest.utils.LogUtil;
 import lk.sugaapps.smartharvest.viewmodel.FirebaseViewModel;
 import lk.sugaapps.smartharvest.viewmodel.UserViewModel;
-import lk.sugaapps.smartharvest.viewmodel.VegetableDetailsViewModel;
 import lk.sugaapps.smartharvest.viewmodel.WeatherViewModel;
 
 @AndroidEntryPoint
@@ -44,12 +40,10 @@ public class MainActivity extends AppCompatActivity {
     private WeatherViewModel weatherViewModel;
     private FirebaseViewModel firebaseViewModel;
     private UserViewModel userViewModel;
-    private List<CropHandBookModel> cropHandBookModelList;
     @Inject
     DialogUtils dialogUtils;
     private RecyclerView recyclerViewCopHandBooks;
     private CropHandBookAdapter cropHandBookAdapter;
-    private VegetableDetailsViewModel vegetableDetailsViewModel;
     private RecyclerView recyclerViewVegetables;
     private VegetablePriceAdapter vegetablePriceAdapter;
 
@@ -63,32 +57,11 @@ public class MainActivity extends AppCompatActivity {
         weatherViewModel = new ViewModelProvider(this).get(WeatherViewModel.class);
         firebaseViewModel = new ViewModelProvider(this).get(FirebaseViewModel.class);
         userViewModel = new ViewModelProvider(this).get(UserViewModel.class);
-        vegetableDetailsViewModel = new ViewModelProvider(this).get(VegetableDetailsViewModel.class);
         observeData();
         onClick();
-
-
         firebaseViewModel.callForGetUserDetails();
         firebaseViewModel.callForGetCropHandBook();
         firebaseViewModel.callForGetVegetablesData();
-       // vegetableDetailsViewModel.loadVegetableDetailsRepository();
-
-        vegetableDetailsViewModel.getVegetableDetailsRepository().observe(this, resource -> {
-            switch (resource.getStatus()) {
-                case LOADING:
-                    // show progress bar
-                    break;
-                case SUCCESS:
-                    LogUtil.logInfo(String.valueOf(resource.getData().get(0).getDetails()));
-
-                    break;
-                case ERROR:
-                    LogUtil.logError("Error :"+resource.getMessage());
-                    Toast.makeText(this, "Error: " + resource.getMessage(), Toast.LENGTH_LONG).show();
-                    break;
-            }
-        });
-
 
     }
 
@@ -232,16 +205,8 @@ public class MainActivity extends AppCompatActivity {
 
             switch (resource.status) {
                 case LOADING:
-              //      binding.recyclerViewCropHandbooks.setVisibility(View.GONE);
-             ///       binding.shimmerCropHandBook.setVisibility(View.VISIBLE);
-             //       binding.shimmerCropHandBook.startShimmer();
                     break;
                 case SUCCESS:
-                //    cropHandBookAdapter = new CropHandBookAdapter(resource.getData());
-              //      recyclerViewCopHandBooks.setAdapter(cropHandBookAdapter);
-            //        binding.recyclerViewCropHandbooks.setVisibility(View.VISIBLE);
-            //        binding.shimmerCropHandBook.setVisibility(View.GONE);
-            //        binding.shimmerCropHandBook.stopShimmer();
                     vegetablePriceAdapter = new VegetablePriceAdapter(resource.getData(), new VegetablePriceAdapter.OnItemClickListener() {
                         @Override
                         public void onItemClick(VegetableResponse item) {
@@ -249,13 +214,8 @@ public class MainActivity extends AppCompatActivity {
                         }
                     });
                     recyclerViewVegetables.setAdapter(vegetablePriceAdapter);
-
-
                     break;
                 case ERROR:
-                  //  binding.recyclerViewCropHandbooks.setVisibility(View.VISIBLE);
-                  //  binding.shimmerCropHandBook.setVisibility(View.GONE);
-                  //  binding.shimmerCropHandBook.stopShimmer();
                     break;
             }
 
@@ -268,6 +228,7 @@ public class MainActivity extends AppCompatActivity {
         binding.txlLocation.setVisibility(View.VISIBLE);
         binding.addLocation.setVisibility(View.VISIBLE);
         binding.recyclerViewWeather.setVisibility(View.GONE);
+        binding.buttonCropAdvisor.setVisibility(View.GONE);
         binding.addLocation.setOnClickListener(v -> {
             if (!Objects.requireNonNull(binding.txlLocation.getEditText()).getText().toString().isEmpty()){
                 weatherViewModel.callForManuallyWeatherData(BuildConfig.WEATHER_API_KEY, binding.txlLocation.getEditText().getText().toString());
@@ -305,6 +266,7 @@ public class MainActivity extends AppCompatActivity {
             GridLayoutManager gridLayoutManager = new GridLayoutManager(this, spanCount);
             binding.recyclerViewWeather.setLayoutManager(gridLayoutManager);
             binding.recyclerViewWeather.setAdapter(weatherAdapter);
+            binding.buttonCropAdvisor.setVisibility(View.VISIBLE);
         }
 
     }
