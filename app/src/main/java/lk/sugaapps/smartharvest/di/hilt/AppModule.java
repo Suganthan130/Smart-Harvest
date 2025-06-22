@@ -1,6 +1,7 @@
 package lk.sugaapps.smartharvest.di.hilt;
 
 import android.content.Context;
+import android.hardware.Sensor;
 import android.hardware.SensorManager;
 
 import javax.inject.Singleton;
@@ -33,6 +34,12 @@ public class AppModule {
     @Singleton
     public SensorManager provideSensorManager(@ApplicationContext Context context) {
         return (SensorManager) context.getSystemService(Context.SENSOR_SERVICE);
+    }
+
+    @Provides
+    @Singleton
+    public Sensor provideLightSensor(SensorManager sensorManager) {
+        return sensorManager.getDefaultSensor(Sensor.TYPE_LIGHT);
     }
 
 }
