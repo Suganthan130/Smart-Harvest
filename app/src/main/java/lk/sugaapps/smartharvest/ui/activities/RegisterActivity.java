@@ -18,8 +18,6 @@ import com.google.firebase.firestore.GeoPoint;
 
 import java.util.Objects;
 
-import javax.inject.Inject;
-
 import dagger.hilt.android.AndroidEntryPoint;
 import lk.sugaapps.smartharvest.R;
 import lk.sugaapps.smartharvest.data.model.LocationModel;
@@ -159,7 +157,6 @@ public class RegisterActivity extends AppCompatActivity {
             binding.txlAgricultureArea.setError("Agriculture area is required");
             isValid = false;
         }
-
 
         return isValid;
     }

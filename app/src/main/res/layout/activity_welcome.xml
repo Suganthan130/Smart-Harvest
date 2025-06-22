@@ -104,6 +104,7 @@
         android:foregroundGravity="center"
         android:gravity="center"
         android:orientation="horizontal"
+        android:visibility="gone"
         app:layout_constraintBottom_toTopOf="@+id/guideline8">
 
         <TextView

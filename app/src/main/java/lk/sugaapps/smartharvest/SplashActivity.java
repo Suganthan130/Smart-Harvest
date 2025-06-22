@@ -15,6 +15,12 @@ import lk.sugaapps.smartharvest.databinding.ActivitySplashScreenBinding;
 import lk.sugaapps.smartharvest.ui.activities.MainActivity;
 import lk.sugaapps.smartharvest.ui.activities.WelcomeActivity;
 
+
+ /* Check if the user is logged in (FirebaseAuth != null)
+If logged in, navigate to MainActivity
+Otherwise, navigate to WelcomeActivity*/
+
+
 @SuppressLint("CustomSplashScreen")
 public class SplashActivity extends AppCompatActivity {
     private ActivitySplashScreenBinding binding;
