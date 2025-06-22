@@ -1,6 +1,7 @@
 package lk.sugaapps.smartharvest.di.hilt;
 
 import android.content.Context;
+import android.hardware.SensorManager;
 
 import javax.inject.Singleton;
 
@@ -22,10 +23,16 @@ public class AppModule {
         return new UserRepository(context);
     }
 
-        @Provides
-        @Singleton
-        public DialogUtils provideDialogUtils() {
-            return new DialogUtils();
-        }
+    @Provides
+    @Singleton
+    public DialogUtils provideDialogUtils() {
+        return new DialogUtils();
+    }
+
+    @Provides
+    @Singleton
+    public SensorManager provideSensorManager(@ApplicationContext Context context) {
+        return (SensorManager) context.getSystemService(Context.SENSOR_SERVICE);
+    }
 
 }

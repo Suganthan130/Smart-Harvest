@@ -2,13 +2,13 @@ package lk.sugaapps.smartharvest.ui.activities;
 
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -21,13 +21,10 @@ import java.util.Objects;
 import javax.inject.Inject;
 
 import dagger.hilt.android.AndroidEntryPoint;
-
 import lk.sugaapps.smartharvest.BuildConfig;
 import lk.sugaapps.smartharvest.data.model.CropHandBookModel;
-import lk.sugaapps.smartharvest.data.model.Resource;
 import lk.sugaapps.smartharvest.data.model.UserModel;
 import lk.sugaapps.smartharvest.data.model.WeatherItemModel;
-import lk.sugaapps.smartharvest.data.remote.model.VegetablePriceDetails;
 import lk.sugaapps.smartharvest.data.remote.model.VegetableResponse;
 import lk.sugaapps.smartharvest.data.remote.model.WeatherResponse;
 import lk.sugaapps.smartharvest.databinding.ActivityMainBinding;
@@ -68,6 +65,8 @@ public class MainActivity extends AppCompatActivity {
         userViewModel = new ViewModelProvider(this).get(UserViewModel.class);
         vegetableDetailsViewModel = new ViewModelProvider(this).get(VegetableDetailsViewModel.class);
         observeData();
+        onClick();
+
 
         firebaseViewModel.callForGetUserDetails();
         firebaseViewModel.callForGetCropHandBook();
@@ -91,6 +90,15 @@ public class MainActivity extends AppCompatActivity {
         });
 
 
+    }
+
+    private void onClick() {
+        binding.buttonCropAdvisor.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(MainActivity.this,CropAdvisorActivity.class));
+            }
+        });
     }
 
     private void initialView() {
@@ -260,7 +268,6 @@ public class MainActivity extends AppCompatActivity {
         binding.txlLocation.setVisibility(View.VISIBLE);
         binding.addLocation.setVisibility(View.VISIBLE);
         binding.recyclerViewWeather.setVisibility(View.GONE);
-        binding.buttonEnableWeatherAlerts.setVisibility(View.GONE);
         binding.addLocation.setOnClickListener(v -> {
             if (!Objects.requireNonNull(binding.txlLocation.getEditText()).getText().toString().isEmpty()){
                 weatherViewModel.callForManuallyWeatherData(BuildConfig.WEATHER_API_KEY, binding.txlLocation.getEditText().getText().toString());
@@ -288,7 +295,6 @@ public class MainActivity extends AppCompatActivity {
             binding.txlLocation.setVisibility(View.GONE);
             binding.addLocation.setVisibility(View.GONE);
             binding.recyclerViewWeather.setVisibility(View.VISIBLE);
-            binding.buttonEnableWeatherAlerts.setVisibility(View.VISIBLE);
             List<WeatherItemModel> weatherItemModelList = new ArrayList<>();
             binding.txvLocation.setText(weather.getLocation().getName());
             weatherItemModelList.add(new WeatherItemModel(weather.getCurrent().getCondition().getText(),weather.getCurrent().getCondition().getText(),weather.getCurrent().getCondition().getIcon(),weather.getCurrent().getTempC()+" C"));
