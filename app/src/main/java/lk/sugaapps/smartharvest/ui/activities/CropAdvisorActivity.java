@@ -2,6 +2,7 @@ package lk.sugaapps.smartharvest.ui.activities;
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;
+import android.view.View;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -44,6 +45,13 @@ public class CropAdvisorActivity extends AppCompatActivity {
                             }
                         });
 
+            }
+        });
+
+        binding.ivBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
             }
         });
 

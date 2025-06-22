@@ -27,14 +27,15 @@
 
     <TextView
         android:id="@+id/tv_pdf_name"
-        android:layout_width="0dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="@font/poppins_medium"
         android:text="Crop  Advisor"
         android:textAlignment="center"
         android:textColor="@color/white"
         app:layout_constraintEnd_toStartOf="@+id/guideline19"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintHorizontal_bias="0.42"
+        app:layout_constraintStart_toEndOf="@+id/iv_back"
         app:layout_constraintTop_toTopOf="@+id/iv_back" />
 
     <ImageView
@@ -156,7 +157,8 @@
                 android:id="@+id/tv_tips"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
+                android:layout_marginTop="4dp"
+                android:layout_marginBottom="8dp"
                 android:fontFamily="@font/poppins_semi_bold"
                 android:text="N/A"
                 android:textColor="@color/black" />
@@ -168,6 +170,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.04" />
+        app:layout_constraintGuide_percent="0.05" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

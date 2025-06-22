@@ -70,31 +70,31 @@ public class CropAdvisorRepository implements SensorEventListener {
     }
     public static String getAdvice(int lux) {
         if (lux < 8000) {
-            return "🔅 Low sunlight — not suitable\n" +
+            return "Low sunlight — not suitable\n" +
                     "குறைந்த ஒளி — பொருத்தமற்றது\n" +
                     "එළිය අඩුයි — වගාවට සුදුසු නැහැ";
         } else if (lux <= 15000) {
-            return "🌱 Good for Beans\n" +
+            return "Good for Beans\n" +
                     "Beans வளர்க்க நல்ல நேரம்\n" +
                     "Beans වගාවට හොඳයි";
         } else if (lux <= 20000) {
-            return "🥬 Ideal for Cabbage\n" +
+            return "Ideal for Cabbage\n" +
                     "Cabbage க்கு சரியான ஒளி\n" +
                     "Cabbage වලට හොඳ එළිය";
         } else if (lux <= 25000) {
-            return "🥕 Best for Carrots\n" +
+            return "Best for Carrots\n" +
                     "Carrot வளர்க்க சிறந்த நேரம்\n" +
                     "Carrot වගාවට සුදුසු";
         } else if (lux <= 30000) {
-            return "🍅🍆 Tomato & Brinjal thrive\n" +
+            return "Tomato & Brinjal thrive\n" +
                     "Tomato & Kathirikai உகந்தது\n" +
                     "Tomato හා Brinjal වගාවට හොඳයි";
         } else if (lux <= 35000) {
-            return "🌶️ Good for Green Chilli\n" +
+            return "Good for Green Chilli\n" +
                     "Green Chilli க்கு உகந்தது\n" +
                     "Green Chilli වගාවට සුදුසු";
         } else {
-            return "☀️ Too much sunlight — use shade\n" +
+            return "Too much sunlight — use shade\n" +
                     "அதிக ஒளி — நிழல் வலை பயன்படுத்தவும்\n" +
                     "එළිය වැඩියි — තාප ආවරණ භාවිත කරන්න";
         }
