@@ -51,6 +51,7 @@
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/poppins_bold"
                     android:text="N/A"
+                    android:textColor="@color/black"
                     android:textSize="@dimen/text_16sp" />
 
                 <TextView
@@ -58,7 +59,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/poppins_medium"
-                    android:text="Click here" />
+                    android:text="Click here"
+                    android:textColor="@color/black" />
             </LinearLayout>
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.cardview.widget.CardView>
