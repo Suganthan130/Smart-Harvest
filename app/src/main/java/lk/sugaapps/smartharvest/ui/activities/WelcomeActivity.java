@@ -2,7 +2,6 @@ package lk.sugaapps.smartharvest.ui.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -22,17 +21,9 @@ public class WelcomeActivity extends AppCompatActivity {
 
     }
     private void setOnClick() {
-        binding.btnSignIn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(WelcomeActivity.this,LoginActivity.class));
-            }
-        });
-        binding.btnSignUp.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(WelcomeActivity.this,RegisterActivity.class));
-            }
-        });
+
+        binding.btnSignIn.setOnClickListener(v -> startActivity(new Intent(WelcomeActivity.this,LoginActivity.class)));
+
+        binding.btnSignUp.setOnClickListener(v -> startActivity(new Intent(WelcomeActivity.this,RegisterActivity.class)));
     }
 }
