@@ -32,7 +32,7 @@ public class AuthRepository {
         firebaseAuth.signInWithEmailAndPassword(email, password)
                 .addOnCompleteListener(task -> {
                     if (task.isSuccessful()) {
-                        result.setValue(Resource.success(firebaseAuth.getCurrentUser(),200));
+                        result.setValue(Resource.success(firebaseAuth.getCurrentUser(),"Loged in successfully",200));
                     } else {
                         result.setValue(Resource.error(
                                 task.getException() != null ?
@@ -76,7 +76,7 @@ public class AuthRepository {
                 .set(user)
                 .addOnCompleteListener(task -> {
                     if (task.isSuccessful()) {
-                        result.setValue(Resource.success(user,201));
+                        result.setValue(Resource.success(user,"save user details successfully",201));
                     } else {
                         result.setValue(Resource.error(
                                 task.getException() != null ?
@@ -84,5 +84,61 @@ public class AuthRepository {
                                 null,500));
                     }
                 });
+    }
+
+    public MutableLiveData<Resource<UserModel>> resetPassword(String email) {
+        MutableLiveData<Resource<UserModel>> result = new MutableLiveData<>();
+
+        result.setValue(Resource.loading(null));
+
+        firebaseAuth.sendPasswordResetEmail(email)
+                .addOnCompleteListener(task -> {
+                    if (task.isSuccessful()) {
+                        result.setValue(Resource.success(null,"Password reset email sent successfully",201));
+                    } else {
+                        result.setValue(Resource.error(
+                                task.getException() != null ?
+                                        task.getException().getMessage() : "Failed to password reset email sent ",
+                                null,500));
+                    }
+                });
+
+        return result;
+
+    }
+
+    public LiveData<Resource<UserModel>> deleteAccount() {
+        MutableLiveData<Resource<UserModel>> result = new MutableLiveData<>();
+        result.setValue(Resource.loading(null));
+
+        FirebaseUser user = firebaseAuth.getCurrentUser();
+
+        if (user == null) {
+            // No user is logged in
+            result.setValue(Resource.error("No user is currently signed in", null, 401));
+            return result;
+        }
+
+        user.delete()
+                .addOnCompleteListener(task -> {
+                    if (task.isSuccessful()) {
+                        // Account deleted successfully
+                        result.setValue(Resource.success(
+                                null,
+                                "Account deleted successfully",
+                                200
+
+                        ));
+                    } else {
+                        // Error occurred
+                        result.setValue(Resource.error(
+                                task.getException() != null ? task.getException().getMessage() : "Failed to delete account",
+                                null,
+                                500
+                        ));
+                    }
+                });
+
+        return result;
     }
 }

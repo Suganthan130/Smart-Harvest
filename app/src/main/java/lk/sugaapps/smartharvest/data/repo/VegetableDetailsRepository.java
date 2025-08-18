@@ -38,7 +38,7 @@ public class VegetableDetailsRepository {
             public void onResponse(@NonNull Call<String> call, @NonNull Response<String> response) {
                 if (response.isSuccessful() && response.body() != null) {
                     List<VegetablePriceDetails> list = parseHtml(response.body());
-                    liveData.postValue(Resource.success(list, response.code()));
+                    liveData.postValue(Resource.success(list, "",response.code()));
                 } else {
                     liveData.postValue(Resource.error("Response not successful", null, response.code()));
                 }

@@ -20,7 +20,6 @@ import lk.sugaapps.smartharvest.ui.activities.WelcomeActivity;
 If logged in, navigate to MainActivity
 Otherwise, navigate to WelcomeActivity*/
 
-
 @SuppressLint("CustomSplashScreen")
 public class SplashActivity extends AppCompatActivity {
     private ActivitySplashScreenBinding binding;

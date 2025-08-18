@@ -7,7 +7,6 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.GeoPoint;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 
 import java.util.ArrayList;
@@ -52,7 +51,7 @@ public class FirebaseRepository {
                         DocumentSnapshot document = task.getResult();
                         if (document.exists()) {
                             UserModel userModel = document.toObject(UserModel.class);
-                           result.setValue(Resource.success(userModel,200));
+                           result.setValue(Resource.success(userModel,"",200));
                         } else {
                             result.setValue(Resource.error("User document not found", null,500));
                         }
@@ -80,7 +79,7 @@ public class FirebaseRepository {
                         if (cropList.isEmpty()) {
                             result.setValue(Resource.error("No documents found", null, 404));
                         } else {
-                            result.setValue(Resource.success(cropList, 200));
+                            result.setValue(Resource.success(cropList,"", 200));
                         }
                     } else {
                         result.setValue(Resource.error("Failed: " + task.getException().getMessage(), null, 500));
@@ -107,7 +106,7 @@ public class FirebaseRepository {
                         if (vegetableList.isEmpty()) {
                             result.setValue(Resource.error("No documents found", null, 404));
                         } else {
-                            result.setValue(Resource.success(vegetableList, 200));
+                            result.setValue(Resource.success(vegetableList, "",200));
                         }
                     } else {
                         result.setValue(Resource.error("Failed: " + task.getException().getMessage(), null, 500));

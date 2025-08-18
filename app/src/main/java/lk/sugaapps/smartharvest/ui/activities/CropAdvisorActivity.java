@@ -2,7 +2,6 @@ package lk.sugaapps.smartharvest.ui.activities;
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;
-import android.view.View;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -33,27 +32,20 @@ public class CropAdvisorActivity extends AppCompatActivity {
 
         viewModel.getLux().observe(this, lux -> binding.tvLux.setText(lux+" lumen/m²"));
         viewModel.getCropAdvice().observe(this, binding.tvTips::setText);
-        viewModel.isSensorAvailable().observe(this, available -> {
+
+        viewModel.isSensorAvailable().observe(this, this::handleSensorAvailability);
+
+        binding.ivBack.setOnClickListener(v -> finish());
+
+    }
+
+    private void handleSensorAvailability(Boolean available) {
             if (!available) {
                 dialogUtils.showErrorDialog(CropAdvisorActivity.this,
                         "Sensor Not Available",
                         "Light sensor is not available on your device. Some features may not work.",
-                        "OK", new Runnable() {
-                            @Override
-                            public void run() {
-                                finish();
-                            }
-                        });
+                        "OK", this::finish);
 
             }
-        });
-
-        binding.ivBack.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
-        });
-
     }
 }

@@ -6,6 +6,8 @@ import androidx.lifecycle.MutableLiveData;
 
 import java.util.List;
 
+import javax.inject.Inject;
+
 import lk.sugaapps.smartharvest.data.model.Resource;
 import lk.sugaapps.smartharvest.data.remote.api.WeatherApiService;
 import lk.sugaapps.smartharvest.data.remote.model.LocationResultResponse;
@@ -14,7 +16,6 @@ import lk.sugaapps.smartharvest.data.remote.model.WeatherResponse;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-import javax.inject.Inject;
 
 public class WeatherRepository {
     private final WeatherApiService weatherApiService;
@@ -58,7 +59,7 @@ public class WeatherRepository {
             @Override
             public void onResponse(@NonNull Call<WeatherResponse> call, @NonNull Response<WeatherResponse> response) {
                 if (response.isSuccessful() && response.body() != null) {
-                    weatherData.setValue(Resource.success(response.body(),response.code()));
+                    weatherData.setValue(Resource.success(response.body(),"",response.code()));
                 } else {
                     weatherData.setValue(Resource.error("Error: " + response.code(), null,response.code()));
                 }
@@ -82,7 +83,7 @@ public class WeatherRepository {
                     if (response.body().isEmpty()){
                         manuallyWeatherData.setValue(Resource.error("Error: " + response.code(), null,400));
                     }else {
-                        manuallyWeatherData.setValue(Resource.success(response.body().get(0),response.code()));
+                        manuallyWeatherData.setValue(Resource.success(response.body().get(0),"",response.code()));
                     }
 
                 } else {

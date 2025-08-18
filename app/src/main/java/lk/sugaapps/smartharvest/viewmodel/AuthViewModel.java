@@ -4,7 +4,6 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-import com.google.android.gms.maps.model.LatLng;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.GeoPoint;
 
@@ -21,10 +20,18 @@ public class AuthViewModel extends ViewModel {
     private final MutableLiveData<Resource<FirebaseUser>> loginResult = new MutableLiveData<>();
     private final MutableLiveData<Resource<UserModel>> registerResult = new MutableLiveData<>();
     private final MutableLiveData<LocationModel> locationResult = new MutableLiveData<>();
+    private final MutableLiveData<Resource<UserModel>> resetPasswordResult = new MutableLiveData<>();
+    private final MutableLiveData<Resource<UserModel>> deleteAccountResult = new MutableLiveData<>();
 
     @Inject
     public AuthViewModel(AuthRepository authRepository) {
         this.authRepository = authRepository;
+    }
+    public LiveData<Resource<UserModel>> getResetPasswordResult() {
+        return resetPasswordResult;
+    }
+    public LiveData<Resource<UserModel>> getDeleteAccountResult() {
+        return deleteAccountResult;
     }
 
     public MutableLiveData<LocationModel> getLocationResult() {
@@ -52,5 +59,16 @@ public class AuthViewModel extends ViewModel {
 
     public LiveData<Resource<UserModel>> getRegisterResult() {
         return registerResult;
+    }
+
+    public void resetPassword(String email) {
+        resetPasswordResult.setValue(Resource.loading(null));
+        authRepository.resetPassword(email).observeForever(resetPasswordResult::postValue);
+    }
+
+    public void deleteAccount() {
+        deleteAccountResult.setValue(Resource.loading(null));
+        authRepository.deleteAccount().observeForever(deleteAccountResult::postValue);
+
     }
 }

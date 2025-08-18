@@ -171,15 +171,15 @@
             android:id="@+id/textView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Don’t have an account ? "
+            android:text="Forget Password ?"
             android:textColor="#D5D5D5" />
 
         <TextView
-            android:id="@+id/tx_sign_up"
+            android:id="@+id/tx_forget"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/poppins_extra_bold"
-            android:text="Sign Up"
+            android:text=" Recover"
             android:textColor="@color/white"
             android:textStyle="bold" />
     </LinearLayout>

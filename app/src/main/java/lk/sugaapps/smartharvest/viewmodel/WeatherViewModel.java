@@ -3,13 +3,14 @@ package lk.sugaapps.smartharvest.viewmodel;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
+
+import javax.inject.Inject;
+
 import dagger.hilt.android.lifecycle.HiltViewModel;
 import lk.sugaapps.smartharvest.data.model.Resource;
 import lk.sugaapps.smartharvest.data.remote.model.LocationResultResponse;
 import lk.sugaapps.smartharvest.data.remote.model.WeatherResponse;
 import lk.sugaapps.smartharvest.data.repo.WeatherRepository;
-
-import javax.inject.Inject;
 
 @HiltViewModel
 public class WeatherViewModel extends ViewModel {
@@ -34,8 +35,6 @@ public class WeatherViewModel extends ViewModel {
     public LiveData<Resource<LocationResultResponse>> getManuallyWeatherData() {
         return manuallyWeatherData;
     }
-
-
 
 
     public void refreshWeather(String apiKey, double lat, double lng) {

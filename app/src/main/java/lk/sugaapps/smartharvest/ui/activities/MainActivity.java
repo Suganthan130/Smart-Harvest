@@ -4,14 +4,19 @@ package lk.sugaapps.smartharvest.ui.activities;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Gravity;
 import android.view.View;
 
 import androidx.activity.EdgeToEdge;
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.google.firebase.auth.FirebaseAuth;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,7 +30,8 @@ import lk.sugaapps.smartharvest.Constant;
 import lk.sugaapps.smartharvest.data.model.UserModel;
 import lk.sugaapps.smartharvest.data.model.WeatherItemModel;
 import lk.sugaapps.smartharvest.data.remote.model.WeatherResponse;
-import lk.sugaapps.smartharvest.databinding.ActivityMainBinding;
+import lk.sugaapps.smartharvest.databinding.ActivityMainDrawerBinding;
+import lk.sugaapps.smartharvest.ui.COMP.Drawer;
 import lk.sugaapps.smartharvest.ui.adapter.CropHandBookAdapter;
 import lk.sugaapps.smartharvest.ui.adapter.VegetablePriceAdapter;
 import lk.sugaapps.smartharvest.ui.adapter.WeatherAdapter;
@@ -36,7 +42,7 @@ import lk.sugaapps.smartharvest.viewmodel.WeatherViewModel;
 
 @AndroidEntryPoint
 public class MainActivity extends AppCompatActivity {
-    private ActivityMainBinding binding ;
+    private ActivityMainDrawerBinding binding ;
     private WeatherViewModel weatherViewModel;
     private FirebaseViewModel firebaseViewModel;
     private UserViewModel userViewModel;
@@ -46,12 +52,15 @@ public class MainActivity extends AppCompatActivity {
     private CropHandBookAdapter cropHandBookAdapter;
     private RecyclerView recyclerViewVegetables;
     private VegetablePriceAdapter vegetablePriceAdapter;
+    private DrawerLayout.DrawerListener mDrawerListener;
+    @Inject
+    FirebaseAuth firebaseAuth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
-        binding = ActivityMainBinding.inflate(getLayoutInflater());
+        binding = ActivityMainDrawerBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
         initialView();
         weatherViewModel = new ViewModelProvider(this).get(WeatherViewModel.class);
@@ -62,6 +71,38 @@ public class MainActivity extends AppCompatActivity {
         firebaseViewModel.callForGetUserDetails();
         firebaseViewModel.callForGetCropHandBook();
         firebaseViewModel.callForGetVegetablesData();
+
+        Drawer mDrawer = new Drawer(MainActivity.this, getSupportFragmentManager(),firebaseAuth.getCurrentUser().getDisplayName());
+        mDrawer.setDrawer(mDrawerListener);
+        DrawerLayout drawerLayout = mDrawer.getDrawerLayout();
+        mDrawerListener = new DrawerLayout.DrawerListener() {
+            @Override
+            public void onDrawerSlide(@NonNull View drawerView, float slideOffset) {
+            }
+
+            @Override
+            public void onDrawerOpened(@NonNull View drawerView) {
+
+            }
+
+            @Override
+            public void onDrawerClosed(@NonNull View drawerView) {
+            }
+
+            @Override
+            public void onDrawerStateChanged(int newState) {
+            }
+        };
+        binding.ivMenu.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (drawerLayout.isDrawerOpen(Gravity.LEFT)) {
+                    drawerLayout.closeDrawer(Gravity.LEFT);
+                } else {
+                    drawerLayout.openDrawer(Gravity.LEFT);
+                }
+            }
+        });
 
     }
 

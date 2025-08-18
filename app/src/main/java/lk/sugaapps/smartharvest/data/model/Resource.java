@@ -31,8 +31,8 @@ public class Resource<T> {
         return statusCode;
     }
 
-    public static <T> Resource<T> success(T data,int statusCode) {
-        return new Resource<>(Status.SUCCESS, data, null,statusCode);
+    public static <T> Resource<T> success(T data,String message,int statusCode) {
+        return new Resource<>(Status.SUCCESS, data, message,statusCode);
     }
 
     public static <T> Resource<T> error(String msg, T data,int statusCode) {

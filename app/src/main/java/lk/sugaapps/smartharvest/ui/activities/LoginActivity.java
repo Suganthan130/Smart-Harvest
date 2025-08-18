@@ -11,8 +11,6 @@ import androidx.lifecycle.ViewModelProvider;
 
 import java.util.Objects;
 
-import javax.inject.Inject;
-
 import dagger.hilt.android.AndroidEntryPoint;
 import lk.sugaapps.smartharvest.databinding.ActivityLoginBinding;
 import lk.sugaapps.smartharvest.viewmodel.AuthViewModel;
@@ -43,10 +41,10 @@ public class LoginActivity extends AppCompatActivity {
                 finish();
             }
         });
-        binding.txSignUp.setOnClickListener(new View.OnClickListener() {
+        binding.txForget.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(LoginActivity.this,RegisterActivity.class));
+                startActivity(new Intent(LoginActivity.this,PasswordForget.class));
                 finish();
             }
         });
