@@ -81,7 +81,7 @@
                     android:gravity="center"
                     android:orientation="vertical"
                     app:layout_constraintEnd_toStartOf="@+id/imageView6"
-                    app:layout_constraintStart_toEndOf="@+id/iv_image"
+                    app:layout_constraintStart_toEndOf="@+id/iv_menu"
                     app:layout_constraintTop_toTopOf="@+id/imageView6">
 
                     <TextView
@@ -125,7 +125,7 @@
                             android:layout_margin="@dimen/padding_8dp"
                             app:cardCornerRadius="@dimen/card_radius_16dp">
 
-                            <lk.sugaapps.smartharvest.ui.components.shimmer.ShimmerFrameLayout
+                            <lk.sugaapps.smartharvest.ui.view.shimmer.ShimmerFrameLayout
                                 android:id="@+id/shimmer_weather"
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
@@ -137,7 +137,7 @@
                                     app:cardBackgroundColor="@color/shimmerColor"
                                     app:cardCornerRadius="@dimen/padding_16dp" />
 
-                            </lk.sugaapps.smartharvest.ui.components.shimmer.ShimmerFrameLayout>
+                            </lk.sugaapps.smartharvest.ui.view.shimmer.ShimmerFrameLayout>
 
                             <androidx.constraintlayout.widget.ConstraintLayout
                                 android:id="@+id/constraint_layout_weather"
@@ -289,7 +289,7 @@
                             android:textColor="@color/black"
                             android:textSize="@dimen/text_16sp" />
 
-                        <lk.sugaapps.smartharvest.ui.components.shimmer.ShimmerFrameLayout
+                        <lk.sugaapps.smartharvest.ui.view.shimmer.ShimmerFrameLayout
                             android:id="@+id/shimmer_vegetable"
                             android:layout_width="match_parent"
                             android:layout_height="180dp"
@@ -301,7 +301,7 @@
                                 app:cardBackgroundColor="@color/shimmerColor"
                                 app:cardCornerRadius="@dimen/padding_16dp" />
 
-                        </lk.sugaapps.smartharvest.ui.components.shimmer.ShimmerFrameLayout>
+                        </lk.sugaapps.smartharvest.ui.view.shimmer.ShimmerFrameLayout>
 
                         <androidx.recyclerview.widget.RecyclerView
                             android:id="@+id/recycler_view_daily_prices"
@@ -338,7 +338,8 @@
                                 android:fontFamily="@font/poppins_bold"
                                 android:text="See all"
                                 android:textAlignment="viewEnd"
-                                android:textColor="@color/colorAccent" />
+                                android:textColor="@color/colorAccent"
+                                android:visibility="gone" />
 
                         </LinearLayout>
 
@@ -351,7 +352,7 @@
 
                         </androidx.recyclerview.widget.RecyclerView>
 
-                        <lk.sugaapps.smartharvest.ui.components.shimmer.ShimmerFrameLayout
+                        <lk.sugaapps.smartharvest.ui.view.shimmer.ShimmerFrameLayout
                             android:id="@+id/shimmer_crop_hand_book"
                             android:layout_width="match_parent"
                             android:layout_height="200dp"
@@ -363,7 +364,7 @@
                                 app:cardBackgroundColor="@color/shimmerColor"
                                 app:cardCornerRadius="@dimen/padding_16dp" />
 
-                        </lk.sugaapps.smartharvest.ui.components.shimmer.ShimmerFrameLayout>
+                        </lk.sugaapps.smartharvest.ui.view.shimmer.ShimmerFrameLayout>
 
                         <View
                             android:id="@+id/view"
@@ -372,16 +373,6 @@
 
                     </LinearLayout>
                 </androidx.core.widget.NestedScrollView>
-
-                <com.github.mikephil.charting.charts.BarChart
-                    android:id="@+id/lineChart"
-                    android:layout_width="0dp"
-                    android:layout_height="300dp"
-                    android:visibility="gone"
-                    app:layout_constraintEnd_toStartOf="@+id/guideline19"
-                    app:layout_constraintStart_toStartOf="@+id/guideline18">
-
-                </com.github.mikephil.charting.charts.BarChart>
 
                 <androidx.constraintlayout.widget.Guideline
                     android:id="@+id/guideline23"
