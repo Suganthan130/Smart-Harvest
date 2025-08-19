@@ -88,5 +88,8 @@ dependencies {
     implementation (libs.jsoup)
     implementation( libs.converter.scalars)
 
+    implementation(libs.tensorflow.lite)
+    implementation("org.tensorflow:tensorflow-lite-select-tf-ops:2.14.0")
+
 
 }
