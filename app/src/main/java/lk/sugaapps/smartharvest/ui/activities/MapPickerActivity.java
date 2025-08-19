@@ -105,14 +105,11 @@ public class MapPickerActivity extends AppCompatActivity implements OnMapReadyCa
                     .position(latLng)
                     .title(title)
                     .draggable(true);
-            // TODO: Add your custom marker icon here if desired
-            // markerOptions.icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_user_pin));
             draggableMarker = mMap.addMarker(markerOptions);
         } else {
             draggableMarker.setPosition(latLng);
             draggableMarker.setTitle(title);
         }
-        // No need to call mMap.moveCamera here as the user is dragging or clicking
     }
 
     @Override
@@ -130,8 +127,6 @@ public class MapPickerActivity extends AppCompatActivity implements OnMapReadyCa
 
         mMap.setOnMapClickListener(latLng -> {
             updateSelectedLocation(latLng, "Selected Location");
-            // Optionally move camera to the new marker position
-            // mMap.animateCamera(CameraUpdateFactory.newLatLng(latLng));
         });
     }
 
@@ -152,10 +147,7 @@ public class MapPickerActivity extends AppCompatActivity implements OnMapReadyCa
                 mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(current, 16f));
             } else {
                 // Handle case where last location is null, maybe set a default or prompt user
-                Toast.makeText(this, "Could not get current location. Please select one manually.", Toast.LENGTH_LONG).show();
-                // Example: set to a default location if user location is not available
-                // updateSelectedLocation(new LatLng(0, 0), "Default Location");
-                // mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(0, 0), 2f));
+                Toast.makeText(this, "Could not get current location. Please select one manually.", Toast.LENGTH_LONG).show();;
             }
         });
     }
