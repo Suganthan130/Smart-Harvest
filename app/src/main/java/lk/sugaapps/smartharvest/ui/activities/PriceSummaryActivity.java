@@ -1,5 +1,6 @@
 package lk.sugaapps.smartharvest.ui.activities;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
@@ -36,6 +37,7 @@ public class PriceSummaryActivity extends AppCompatActivity {
 
         String vegetableName = getIntent().getStringExtra(Constant.VEG_NAME);
         String vegetableID = getIntent().getStringExtra(Constant.VEG_ID);
+        String vegetableDocID = getIntent().getStringExtra(Constant.VEG_DOCUMENT_ID);
 
         binding.tvVegName.setText(vegetableName);
 
@@ -65,6 +67,13 @@ public class PriceSummaryActivity extends AppCompatActivity {
         });
         binding.ivBack.setOnClickListener(v -> {
            finish();
+        });
+
+        binding.buttonSeePredication.setOnClickListener(v -> {
+            Intent intent = new Intent(PriceSummaryActivity.this, PricePredictionActivity.class);
+            intent.putExtra(Constant.VEG_ID, vegetableDocID);
+            intent.putExtra(Constant.VEG_NAME, vegetableName);
+            startActivity(intent);
         });
     }
 

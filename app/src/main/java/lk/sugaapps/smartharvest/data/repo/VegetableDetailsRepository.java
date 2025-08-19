@@ -4,6 +4,10 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.Query;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -14,6 +18,7 @@ import java.util.List;
 
 import javax.inject.Inject;
 
+import lk.sugaapps.smartharvest.data.model.PredicatedPriceModel;
 import lk.sugaapps.smartharvest.data.model.Resource;
 import lk.sugaapps.smartharvest.data.remote.api.PriceDetailsApiService;
 import lk.sugaapps.smartharvest.data.remote.model.VegetablePriceDetails;
@@ -23,6 +28,8 @@ import retrofit2.Response;
 
 public class VegetableDetailsRepository {
     private final PriceDetailsApiService api;
+    @Inject
+    FirebaseFirestore firestore;
 
     @Inject
     public VegetableDetailsRepository(PriceDetailsApiService api) {
@@ -66,4 +73,33 @@ public class VegetableDetailsRepository {
 
         return summaryList;
     }
+
+    public LiveData<Resource<List<PredicatedPriceModel>>> getPricePredicatedData(String vegetableId) {
+        MutableLiveData<Resource<List<PredicatedPriceModel>>> liveData = new MutableLiveData<>();
+        liveData.postValue(Resource.loading(null));;
+
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+
+        db.collection("PricePrediction")
+                .document(vegetableId)
+                .collection("next30days")
+                .orderBy("date", Query.Direction.ASCENDING)
+                .get()
+                .addOnCompleteListener(task -> {
+                    if (task.isSuccessful()) {
+                        List<PredicatedPriceModel> list = new ArrayList<>();
+                        for (QueryDocumentSnapshot doc : task.getResult()) {
+                            PredicatedPriceModel model = doc.toObject(PredicatedPriceModel.class);
+                            list.add(model);
+                        }
+                        liveData.setValue(Resource.success(list, "", 200));
+                    } else {
+                        liveData.setValue(Resource.error(task.getException().getMessage(), null, 500));
+                    }
+                });
+
+
+        return liveData;
+    }
+
 }
