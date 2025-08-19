@@ -6,7 +6,7 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-package lk.sugaapps.smartharvest.ui.view.shimmer;
+package lk.sugaapps.smartharvest.ui.components.shimmer;
 
 import android.content.Context;
 import android.content.res.TypedArray;
