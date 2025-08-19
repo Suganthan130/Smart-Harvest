@@ -31,10 +31,10 @@ import lk.sugaapps.smartharvest.data.model.UserModel;
 import lk.sugaapps.smartharvest.data.model.WeatherItemModel;
 import lk.sugaapps.smartharvest.data.remote.model.WeatherResponse;
 import lk.sugaapps.smartharvest.databinding.ActivityMainDrawerBinding;
-import lk.sugaapps.smartharvest.ui.COMP.Drawer;
 import lk.sugaapps.smartharvest.ui.adapter.CropHandBookAdapter;
 import lk.sugaapps.smartharvest.ui.adapter.VegetablePriceAdapter;
 import lk.sugaapps.smartharvest.ui.adapter.WeatherAdapter;
+import lk.sugaapps.smartharvest.ui.view.drawer.Drawer;
 import lk.sugaapps.smartharvest.utils.DialogUtils;
 import lk.sugaapps.smartharvest.viewmodel.FirebaseViewModel;
 import lk.sugaapps.smartharvest.viewmodel.UserViewModel;
@@ -63,6 +63,7 @@ public class MainActivity extends AppCompatActivity {
         binding = ActivityMainDrawerBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
         initialView();
+        drawerInit();
         weatherViewModel = new ViewModelProvider(this).get(WeatherViewModel.class);
         firebaseViewModel = new ViewModelProvider(this).get(FirebaseViewModel.class);
         userViewModel = new ViewModelProvider(this).get(UserViewModel.class);
@@ -71,8 +72,10 @@ public class MainActivity extends AppCompatActivity {
         firebaseViewModel.callForGetUserDetails();
         firebaseViewModel.callForGetCropHandBook();
         firebaseViewModel.callForGetVegetablesData();
+    }
 
-        Drawer mDrawer = new Drawer(MainActivity.this, getSupportFragmentManager(),firebaseAuth.getCurrentUser().getDisplayName());
+    private void drawerInit() {
+        Drawer mDrawer = new Drawer(MainActivity.this, getSupportFragmentManager(),firebaseAuth);
         mDrawer.setDrawer(mDrawerListener);
         DrawerLayout drawerLayout = mDrawer.getDrawerLayout();
         mDrawerListener = new DrawerLayout.DrawerListener() {
@@ -103,7 +106,6 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         });
-
     }
 
     private void onClick() {
@@ -248,6 +250,7 @@ public class MainActivity extends AppCompatActivity {
                         Intent intent = new Intent(MainActivity.this,PriceSummaryActivity.class);
                         intent.putExtra(Constant.VEG_ID,item.getPrice_id());
                         intent.putExtra(Constant.VEG_NAME,item.getName());
+                        intent.putExtra(Constant.VEG_DOCUMENT_ID,item.getId());
                         startActivity(intent);
 
                     });

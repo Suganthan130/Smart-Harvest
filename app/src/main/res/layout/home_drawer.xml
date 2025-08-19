@@ -25,19 +25,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
-                <TextView
-                    android:id="@+id/user_name_txt"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="16dp"
-                    android:fontFamily="@font/poppins_semi_bold"
-                    android:text="Hi User"
-                    android:textColor="@color/white"
-                    android:textSize="16sp"
-                    app:layout_constraintEnd_toStartOf="@+id/guideline16"
-                    app:layout_constraintStart_toStartOf="@+id/guideline15"
-                    app:layout_constraintTop_toTopOf="@+id/guideline17" />
-
                 <androidx.constraintlayout.widget.Guideline
                     android:id="@+id/guideline15"
                     android:layout_width="wrap_content"
@@ -67,83 +54,10 @@
                     app:layout_constraintGuide_percent="0.95" />
 
                 <LinearLayout
-                    android:id="@+id/layout_setting"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
-                    android:backgroundTint="#202020"
-                    android:clickable="true"
-                    android:focusable="true"
-                    android:orientation="horizontal"
-                    android:visibility="visible"
-                    app:layout_constraintEnd_toStartOf="@+id/guideline16"
-                    app:layout_constraintHorizontal_bias="0.0"
-                    app:layout_constraintStart_toStartOf="@+id/guideline15"
-                    app:layout_constraintTop_toBottomOf="@+id/layout_account">
-
-                    <ImageView
-
-                        android:layout_width="50dp"
-                        android:layout_height="50dp"
-                        android:layout_marginStart="10dp"
-                        android:padding="10dp"
-                        app:srcCompat="@drawable/ic_settings_24" />
-
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:layout_weight="1"
-                        android:fontFamily="@font/poppins_medium"
-                        android:gravity="center|start"
-                        android:paddingStart="10dp"
-                        android:text="Settings"
-                        android:textColor="@color/white"
-                        android:textSize="14sp" />
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:id="@+id/layout_account"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_marginTop="16dp"
-                    android:backgroundTint="#202020"
-                    android:clickable="true"
-                    android:focusable="true"
-                    android:orientation="horizontal"
-                    android:visibility="visible"
-                    app:layout_constraintEnd_toStartOf="@+id/guideline16"
-                    app:layout_constraintHorizontal_bias="0.0"
-                    app:layout_constraintStart_toStartOf="@+id/guideline15"
-                    app:layout_constraintTop_toBottomOf="@+id/user_name_txt">
-
-                    <ImageView
-                        android:layout_width="50dp"
-                        android:layout_height="50dp"
-                        android:layout_marginStart="10dp"
-                        android:padding="10dp"
-                        app:srcCompat="@drawable/ic_account" />
-
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:layout_weight="1"
-                        android:fontFamily="@font/poppins_medium"
-                        android:gravity="center|start"
-                        android:paddingStart="10dp"
-                        android:text="Account"
-                        android:textColor="@color/white"
-                        android:textSize="14sp" />
-
-                </LinearLayout>
-
-                <LinearLayout
                     android:id="@+id/layout_logout"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
-                    android:layout_marginTop="8dp"
+                    android:layout_marginTop="24dp"
                     android:backgroundTint="#202020"
                     android:clickable="true"
                     android:focusable="true"
@@ -152,7 +66,7 @@
                     app:layout_constraintEnd_toStartOf="@+id/guideline16"
                     app:layout_constraintHorizontal_bias="0.0"
                     app:layout_constraintStart_toStartOf="@+id/guideline15"
-                    app:layout_constraintTop_toBottomOf="@+id/layout_setting">
+                    app:layout_constraintTop_toTopOf="@+id/guideline17">
 
                     <ImageView
 
